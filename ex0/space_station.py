@@ -1,6 +1,14 @@
-from pydantic import BaseModel, Field, ValidationError
-from datetime import datetime
-from typing import Optional
+try:
+    from pydantic import BaseModel, Field, ValidationError
+    from datetime import datetime
+    from typing import Optional
+except ModuleNotFoundError as e:
+    print(f"Error: {e}")
+    print("\n=== INSTRUCTION ===\n")
+    print("Build a Venv VE:")
+    print("(Python3 -m venv venv) -> (source venv/bin/activate)")
+    print("(pip install pydantic) -> (python3 space_station.py)")
+    exit()
 
 
 class SpaceStation(BaseModel):
@@ -32,6 +40,7 @@ def main():
         print(f"Crew: {valid_station.crew_size} people")
         print(f"Power: {valid_station.power_level}%")
         print(f"Oxygen: {valid_station.oxygen_level}%")
+        print(f"Last Manteinance: {valid_station.last_maintenance}")
         if valid_station.is_operational:
             status = "Operational"
         else:
