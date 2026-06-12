@@ -4,7 +4,7 @@ try:
     from typing import Optional
 except ModuleNotFoundError as e:
     print(f"Error: {e}")
-    print("\n=== INSTRUCTION ===\n")
+    print("\n=== INSTRUCTION ===")
     print("Build a Venv VE:")
     print("(Python3 -m venv venv) -> (source venv/bin/activate)")
     print("(pip install pydantic) -> (python3 space_station.py)")
@@ -32,7 +32,7 @@ def main():
             crew_size=6,
             power_level=85.5,
             oxygen_level=92.3,
-            last_maintenance="2026-06-12T12:00:00"
+            last_maintenance=datetime.now()
         )
         print("Valid Station Created:")
         print(f"ID: {valid_station.stattion_id}")
