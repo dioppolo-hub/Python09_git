@@ -72,8 +72,8 @@ def main():
     print("=" * 40)
     print("\nExpected validation error:")
     try:
-        valid_report = AlienContact(
-            contact_id="AC_2024_002(",
+        invalid_report = AlienContact(
+            contact_id="AC_2024_002",
             timestamp=datetime.now(),
             location="London, UK",
             contact_tipe=ContactType.TELEPATHIC,
