@@ -63,7 +63,7 @@ def main():
         name="Franko Rossi",
         rank=Rank.LITENANT,
         age=19,
-        specialization="Pilot",
+        specialization="Navigation",
         years_experience=1
     )
     commander = CrewMember(
@@ -71,7 +71,7 @@ def main():
         name="Bobby b. blue",
         rank=Rank.COMMANDER,
         age=29,
-        specialization="Tactical Commander",
+        specialization="Mission Command",
         years_experience=2
     )
     officer = CrewMember(
@@ -79,7 +79,7 @@ def main():
         name="Danny d. doo",
         rank=Rank.OFFICER,
         age=35,
-        specialization="Tecnician",
+        specialization="Engineering",
         years_experience=5
     )
     print("Space Mission Crew Validation:")
@@ -96,18 +96,20 @@ def main():
             budget_millions=2500.0,
         )
         print("Valid Mission created:")
-        print(f"Mission: {mission_name}")
-        print(f"ID: {mission_id}")
-        print(f"Destination: {destination}")
-        print(f"Budget: {budget_millions}M")
-        print(f"Mission Status: {mission_status}")
-        print(f"Launch_date: {launch_date}")
-        print(f"Crew Size: {len(crew)}")
-        for member in crew:
+        print(f"Mission: {valid_mission.mission_name}")
+        print(f"ID: {valid_mission.mission_id}")
+        print(f"Destination: {valid_mission.destination}")
+        print(f"Budget: {valid_mission.budget_millions}M")
+        print(f"Mission Status: {valid_mission.mission_status}")
+        print(f"Launch_date: {valid_mission.launch_date}")
+        print(f"Crew Size: {len(valid_mission.crew)}")
+        for member in valid_mission.crew:
             print(f"- {member.name} ({member.rank}) - {member.specialization}")
     except ValidationError as e:
         print(f"Validation Error: {e}")
+    print("=" * 40)
     try:
+        print("\nTesting Invalid Mission...\n")
         invalid_mission = SpaceMission(
                 mission_id="M2024_MARS",
                 mission_name="Mars Colony Establishment",
