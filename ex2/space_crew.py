@@ -39,15 +39,16 @@ class SpaceMission(BaseModel):
     mission_status: str = "planned"
     budget_millions: float = Field(ge=1.0, le=10000.0)
 
-
     @model_validator(mode='after')
-    def validate_error(self) -> 'Crew':
+    def validate_error(self) -> 'SpaceMission':
         if not self.mission_id.startswith("M"):
             raise ValueError("Contact ID must start with 'M'")
         has_leader = False
         for member in self.crew:
-            if member.rank == "commander" or\
-                member.rank == "captain":
+            if (
+                member.rank == "commander" or
+                member.rank == "captain"
+            ):
                 has_leader = True
                 break
         if not has_leader:
@@ -120,6 +121,14 @@ def main():
                 mission_status="planned",
                 budget_millions=2500.0,
             )
+        print("Invalid Mission created:")
+        print(f"Mission: {invalid_mission.mission_name}")
+        print(f"ID: {invalid_mission.mission_id}")
+        print(f"Destination: {invalid_mission.destination}")
+        print(f"Budget: {invalid_mission.budget_millions}M")
+        print(f"Mission Status: {invalid_mission.mission_status}")
+        print(f"Launch_date: {invalid_mission.launch_date}")
+        print(f"Crew Size: {len(invalid_mission.crew)}")
     except ValidationError as e:
         for error in e.errors():
             print(error['msg'])

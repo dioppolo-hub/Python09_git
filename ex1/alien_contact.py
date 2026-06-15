@@ -30,17 +30,23 @@ class AlienContact(BaseModel):
     message_received: Optional[str] = Field(default=None, max_length=500)
     is_verified: bool = False
 
-
     @model_validator(mode='after')
     def validate_complex_error(self) -> 'AlienContact':
         if not self.contact_id.startswith("AC"):
             raise ValueError("Contact ID must start with 'AC'")
         if self.contact_tipe.PHYSICAL and not self.is_verified:
             raise ValueError("Physical contact reports must be verified")
-        if self.contact_tipe == self.contact_tipe.TELEPATHIC and self.witness_count < 3:
-            raise ValueError("Telepathic contact requires at least 3 witnesses")
+        if (
+            self.contact_tipe == self.contact_tipe.TELEPATHIC and
+            self.witness_count < 3
+        ):
+            raise ValueError(
+                "Telepathic contact requires at least 3 witnesses"
+                )
         if self.signal_streght > 7.0 and not self.message_received:
-            raise ValueError("Strong signals (> 7.0) should include received messages")
+            raise ValueError(
+                "Strong signals (> 7.0) should include received messages"
+                )
         return self
 
 
@@ -82,6 +88,14 @@ def main():
             witness_count=1,
             message_received="Greetings from Zeta Reticuli"
         )
+        print("Invalid contact report:")
+        print(f"ID: {invalid_report.contact_id}")
+        print(f"Type: {invalid_report.contact_tipe.value}")
+        print(f"Location: {invalid_report.location}")
+        print(f"Signal: {invalid_report.signal_streght}/10")
+        print(f"Duration: {invalid_report.duration_minutes} minutes")
+        print(f"Witnesses: {invalid_report.witness_count}")
+        print(f"Message: {invalid_report.message_received}")
     except ValidationError as e:
         for error in e.errors():
             print(error['msg'])

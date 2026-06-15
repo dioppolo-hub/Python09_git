@@ -59,9 +59,15 @@ def main():
             oxygen_level=50.0,
             last_maintenance="2026-06-12T12:00:00"
         )
+        print("Invalid Station Created:")
+        print(f"ID: {invalid_station.stattion_id}")
+        print(f"Name: {invalid_station.name}")
+        print(f"Crew: {invalid_station.crew_size} people")
+        print(f"Power: {invalid_station.power_level}%")
+        print(f"Oxygen: {invalid_station.oxygen_level}%")
+        print(f"Last Manteinance: {invalid_station.last_maintenance}")
     except ValidationError as e:
-        errors = e.errors()
-        for error in errors:
+        for error in e.errors():
             print(error['msg'])
 
 
