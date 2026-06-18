@@ -76,7 +76,7 @@ def main():
     except ValidationError as e:
         print(f"Validation error: {e}")
     print("=" * 40)
-    print("\nExpected validation error:")
+    print("\nTrying invalid report...")
     try:
         invalid_report = AlienContact(
             contact_id="AC_2024_002",
